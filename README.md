@@ -39,7 +39,7 @@ No this script only support windows for now. Feel free to open a pull request if
 
 <details>
   <summary>Answer</summary>
-**A:** Check the installation section here. 
+Check the installation section here. 
 </details>
 -------------------------------------------------------
 
