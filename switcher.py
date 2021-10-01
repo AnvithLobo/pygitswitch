@@ -118,7 +118,7 @@ def symlink(host, symlink_to, is_dir=False):
     if is_dir:
         command += " /d"
 
-    # spend an hour to fid how sudo in windows works ! 
+    # spend an hour to find how sudo in windows works !
     command = "/c " + command
     ctypes.windll.shell32.ShellExecuteW(None, "runas", 'cmd.exe', command, None, 1)
     # run(command)
