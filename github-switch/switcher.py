@@ -7,7 +7,8 @@ import argparse
 import time
 import shutil
 import ctypes
-
+from installer import get_github_path
+from helpers import run_command
 
 # Add Users here
 accounts = ['user1', 'user2', 'user3']
@@ -17,14 +18,6 @@ github_folder = "GitHub Desktop"
 github_base_path = app_data_path / github_folder
 github_executable = "GitHubDesktop.exe"
 config_file = Path('~').expanduser().absolute() / ".gitconfig"
-
-
-def run(command):
-    subprocess.run(command, stderr=sys.stderr, stdout=sys.stdout)
-
-
-def run_no_output(command):
-    return subprocess.run(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
 def launch_github():
@@ -38,7 +31,7 @@ def launch_github():
         raise Exception(f"Error finding github path \n {where_github.stderr.decode()}")
     github_path = Path(where_github.stdout.decode().splitlines()[-1])"""
 
-    github_path = (app_data_path / "..\Local\GitHubDesktop\GitHubDesktop.exe").resolve()
+    github_path = get_github_path()
     subprocess.Popen(github_path)
 
 
@@ -55,7 +48,7 @@ def kill_github():
 
     if github_running:
         print("\nStopping Github Process")
-        kill_status = run_no_output(f"taskkill /f /im {github_executable}")
+        kill_status = run_command(f"taskkill /f /im {github_executable}")
         print(kill_status.returncode)
         if kill_status.returncode != 0 and "ERROR: The process" not in kill_status.stderr.decode():
             raise Exception(f"Error Killing {github_executable} with error \n {kill_status.stderr.decode()}")
@@ -180,6 +173,9 @@ def parse_args():
     add_user_parser = subparser.add_parser('add_user', help="Add more users each user proceeded with a space")
     add_user_parser.add_argument('user', metavar="username", nargs='+')
 
+    install_parser = subparser.add_parser('install', help="Install Github")
+    install_parser.add_argument('-b', '--beta', help="Install GitHub Desktop Beta")
+
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit()
@@ -188,7 +184,13 @@ def parse_args():
 
 
 def main(args):
+
     script = args.get('script')
+    if script != 'install':
+        # Check if github is installed
+        if not get_github_path:
+            print("Github Not found install it manually or using the install script")
+
     if script == "switch":
         switcher(start_github=not args.get('start_github'))
     elif script == "init":
