@@ -4,7 +4,7 @@ from shutil import which
 from helpers import run_command
 
 
-def install(beta=False):
+def github_install(beta=False):
     # Check for winget ( windows package manager available by default in windows 11)
     # https://github.com/microsoft/winget-cli
 

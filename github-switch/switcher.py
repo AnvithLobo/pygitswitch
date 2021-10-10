@@ -7,7 +7,7 @@ import argparse
 import time
 import shutil
 import ctypes
-from installer import get_github_path
+from installer import get_github_path, github_install
 from helpers import run_command
 
 # Add Users here
@@ -174,7 +174,7 @@ def parse_args():
     add_user_parser.add_argument('user', metavar="username", nargs='+')
 
     install_parser = subparser.add_parser('install', help="Install Github")
-    install_parser.add_argument('-b', '--beta', help="Install GitHub Desktop Beta")
+    install_parser.add_argument('-b', '--beta', help="Install GitHub Desktop Beta", action="store_true")
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -186,7 +186,7 @@ def parse_args():
 def main(args):
 
     script = args.get('script')
-    if script != 'install':
+    if script != "install":
         # Check if github is installed
         if not get_github_path:
             print("Github Not found install it manually or using the install script")
@@ -198,6 +198,8 @@ def main(args):
     elif script == "add_user":
         setup(setup_accounts=args.get('user'))
         print('\nmake sure to modify the accounts in script to add new users')
+    elif script == "install":
+        github_install(beta=args.get("beta"))
 
 
 if __name__ == '__main__':
