@@ -60,10 +60,8 @@ def existing_data_handler(folder_ext="", config_ext="", delete=False):
     if config_file.is_symlink():
         config_file.unlink(missing_ok=True)
     elif config_file.is_file():
-        if delete:
-            config_file.unlink(missing_ok=True)
-        else:
-            config_file.rename(config_file.parent / (".gitconfig" + config_ext))
+        config_file.unlink(missing_ok=True)
+
 
 
 def handle_current_user():

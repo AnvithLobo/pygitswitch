@@ -14,7 +14,7 @@ def parse_args():
 
     switch_parser = subparser.add_parser('switch', help="Switch github account")
     switch_parser.add_argument('-d', '--do-not-start-github', help="Do NOT Start github after switching account",
-                               action="store_false", default=True)
+                               action="store_true", default=False)
 
     setup_parser = subparser.add_parser('init', help="Initial Setup (should only be used once)")
     setup_parser.add_argument("-c", "--current-user", help="Store current user login as (do not delete current user)",
