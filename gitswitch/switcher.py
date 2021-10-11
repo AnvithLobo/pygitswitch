@@ -52,9 +52,7 @@ def kill_github():
 
 def existing_data_handler(folder_ext="", config_ext="", delete=False):
     # move the current github folder if exists to Github Desktop-Backup
-    if github_base_path.is_symlink():
-        github_base_path.unlink(missing_ok=True)
-    elif github_base_path.is_dir():
+    if github_base_path.is_dir():
         if delete:
             shutil.rmtree(github_base_path, ignore_errors=True)
         else:
@@ -121,9 +119,12 @@ def setup(setup_accounts, setup_type='switch', current_user=None):
 
     # Write all accounts to JSON file
     create_config(file=Path().home() / "gitswitch.json", accounts=accounts + all_accounts)
+    
+    # start gitswitch
+    switcher(start_github=True)
 
     print("\n\nFinished setting up account/s")
-    print("\n run (switcher.py switch) to start using github")
+    print("\n run gitswitch to switch accounts")
 
 
 def symlink(host, symlink_to, is_dir=False):
@@ -142,17 +143,25 @@ def copy(host, copy_to, is_dir=False):
     shutil.copy(host, copy_to)
 
 
-def switcher(accounts: list, start_github: bool = False) -> None:
+def rename(host: Path, rename_to: Path):
+    host.rename(rename_to)
+
+
+def switcher(start_github: bool = True) -> None:
+    accounts = get_accounts()
     while github_process():
         kill_github()
         time.sleep(1)
 
     # delete current_data
     if not get_current_user():
+        # if current user is None delete gitconfig and githubDesktop
         existing_data_handler(delete=True)
     else:
         # ToDo: Rename the current default folder to existing user
-        pass
+        existing_data_handler(folder_ext=get_current_user(), config_ext=get_current_user(), delete=False)
+        # set current user = None
+        create_config(accounts=accounts, current_user=None)
 
     print("Select Account")
     print("---------------\n")
@@ -174,9 +183,13 @@ def switcher(accounts: list, start_github: bool = False) -> None:
     print(f"\nSwitching account to user : {selected_user}")
 
     # symlink github folder and config file
-    symlink(host=Path(github_base_path.as_posix() + selected_user), symlink_to=github_base_path, is_dir=True)
+    # symlink(host=Path(github_base_path.as_posix() + selected_user), symlink_to=github_base_path, is_dir=True)
+    rename(host=Path(github_base_path.as_posix() + selected_user), rename_to=github_base_path)
     copy(host=Path(config_file.as_posix() + selected_user), copy_to=config_file, is_dir=False)
-
+    
+    # set current user as selected user 
+    create_config(accounts=accounts, current_user=selected_user)
+    
     if start_github:
         launch_github()
     print("\nDone ")

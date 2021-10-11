@@ -18,7 +18,7 @@ def run_command(command: str, std_output=False):
     return return_data.returncode
 
 
-def create_config(file: Path, accounts=None, current_user=None) -> None:
+def create_config(file: Path = Path().home() / 'gitswitch.json', accounts=None, current_user=None) -> None:
     """
     create a config json file in given path
     """
