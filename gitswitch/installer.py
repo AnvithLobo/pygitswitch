@@ -19,7 +19,7 @@ def github_install(beta=False):
         # Search for package
         return_data = run_command(f"winget show -e {package}", std_output=True)
         if return_data.return_code != 0:
-            print(f"\n\nProcess exited with return code {return_code}")
+            print(f"\n\nProcess exited with return code {return_data.return_code}")
             print("If retrying does not work open a support ticket "
                   "https://github.com/AnvithLobo/github-switch/issues/new")
             sys.exit(-1)
@@ -28,7 +28,7 @@ def github_install(beta=False):
         print("\n\n")
         return_data = run_command(f"winget install -e {package}", std_output=True)
         if return_data.return_code != 0:
-            print(f"\n\n Failed to install process exited {return_code}")
+            print(f"\n\n Failed to install process exited {return_data.return_code}")
             print("If retrying does not work open a support ticket "
                   "https://github.com/AnvithLobo/github-switch/issues/new")
             sys.exit(-1)
