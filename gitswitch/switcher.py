@@ -106,6 +106,7 @@ def setup(setup_accounts, setup_type='add-user', current_user=None):
             sys.exit(-1)
 
     if current_user:
+        print(f"Backing up current user as {current_user}")
         existing_data_handler(folder_ext=f"{current_user}", config_ext=f"{current_user}")
     else:
         existing_data_handler(folder_ext="-backup", config_ext="-backup")
