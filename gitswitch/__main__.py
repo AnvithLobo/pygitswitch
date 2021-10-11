@@ -18,18 +18,18 @@ def parse_args():
 
     setup_parser = subparser.add_parser('init', help="Initial Setup (should only be used once)")
     setup_parser.add_argument("-c", "--current-user", help="Store current user login as (do not delete current user)",
-                              type=str, default=None, metavar="current_user")
-    setup_parser.add_argument("-u", "--users", help="all usernames seperated by space", nargs="+", metavar='users')
+                              type=str, default=None, metavar="USERNAME")
+    setup_parser.add_argument("-u", "--users", help="all usernames seperated by space", nargs="+", metavar='USERNAME')
 
     add_user_parser = subparser.add_parser('add_user', help="Add more users each user proceeded with a space")
-    add_user_parser.add_argument('user', metavar="username", nargs='+')
+    add_user_parser.add_argument('user', metavar="USERNAME", nargs='+')
 
     install_parser = subparser.add_parser('install', help="Install Github")
     install_parser.add_argument('-b', '--beta', help="Install GitHub Desktop Beta", action="store_true")
 
-    """if len(sys.argv) == 1:
+    if len(sys.argv) == 1:
         parser.print_help()
-        sys.exit()"""
+        sys.exit()
 
     return parser.parse_args()
 
