@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 from shutil import which
-from helpers import run_command
+from gitswitch.helpers import run_command
 
 
 def github_install(beta=False):
@@ -20,8 +20,8 @@ def github_install(beta=False):
         return_code = run_command(f"winget show -e {package}", std_output=True)
         if return_code != 0:
             print(f"\n\nProcess exited with return code {return_code}")
-            print(f"If retrying does not work open a support ticket "
-                  f"https://github.com/AnvithLobo/github-switch/issues/new")
+            print("If retrying does not work open a support ticket "
+                  "https://github.com/AnvithLobo/github-switch/issues/new")
             sys.exit(-1)
 
         # Install Package
@@ -29,8 +29,8 @@ def github_install(beta=False):
         return_code = run_command(f"winget install -e {package}", std_output=True)
         if return_code != 0:
             print(f"\n\n Failed to install process exited {return_code}")
-            print(f"If retrying does not work open a support ticket "
-                  f"https://github.com/AnvithLobo/github-switch/issues/new")
+            print("If retrying does not work open a support ticket "
+                  "https://github.com/AnvithLobo/github-switch/issues/new")
             sys.exit(-1)
 
     else:
@@ -50,5 +50,3 @@ def get_github_path():
         return github_exe_path
     else:
         return None
-
-
