@@ -1,7 +1,5 @@
 import argparse
-import sys
 
-from gitswitch.helpers import get_accounts
 from gitswitch.installer import get_github_path, github_install
 from gitswitch.switcher import switcher, setup
 

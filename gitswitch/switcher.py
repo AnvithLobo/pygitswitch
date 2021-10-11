@@ -4,7 +4,6 @@ import sys
 from pathlib import Path
 import time
 import shutil
-import ctypes
 from gitswitch.installer import get_github_path
 from gitswitch.helpers import run_command, create_config, get_accounts, get_current_user
 
@@ -67,7 +66,20 @@ def existing_data_handler(folder_ext="", config_ext="", delete=False):
             config_file.rename(config_file.parent / (".gitconfig" + config_ext))
 
 
-def setup(setup_accounts, setup_type='switch', current_user=None):
+def handle_current_user():
+    """
+    Handle current user data. If Current user is none delete default files else rename to user DIR
+    """
+    if not get_current_user():
+        # if current user is None delete gitconfig and githubDesktop
+        existing_data_handler(delete=True)
+    else:
+        existing_data_handler(folder_ext=get_current_user(), config_ext=get_current_user(), delete=False)
+        # set current user = None
+        create_config(accounts=get_accounts(), current_user=None)
+
+
+def setup(setup_accounts, setup_type='add-user', current_user=None):
     """
     Initial accounts setup / method to setup more accounts
     """
@@ -75,6 +87,8 @@ def setup(setup_accounts, setup_type='switch', current_user=None):
     # add a init setup type method and create a gitswitch.json
     if setup_type == 'init':
         create_config(file=Path().home() / "gitswitch.json")
+    else:
+        handle_current_user()
 
     # get previously setup accounts
     accounts = get_accounts()
@@ -119,7 +133,7 @@ def setup(setup_accounts, setup_type='switch', current_user=None):
 
     # Write all accounts to JSON file
     create_config(file=Path().home() / "gitswitch.json", accounts=accounts + all_accounts)
-    
+
     # start gitswitch
     switcher(start_github=True)
 
@@ -146,10 +160,7 @@ def switcher(start_github: bool = True) -> None:
         # if current user is None delete gitconfig and githubDesktop
         existing_data_handler(delete=True)
     else:
-        # ToDo: Rename the current default folder to existing user
-        existing_data_handler(folder_ext=get_current_user(), config_ext=get_current_user(), delete=False)
-        # set current user = None
-        create_config(accounts=accounts, current_user=None)
+        handle_current_user()
 
     print("Select Account")
     print("---------------\n")
@@ -172,10 +183,10 @@ def switcher(start_github: bool = True) -> None:
 
     rename(host=Path(github_base_path.as_posix() + selected_user), rename_to=github_base_path)
     copy(host=Path(config_file.as_posix() + selected_user), copy_to=config_file, is_dir=False)
-    
-    # set current user as selected user 
+
+    # set current user as selected user
     create_config(accounts=accounts, current_user=selected_user)
-    
+
     if start_github:
         launch_github()
     print("\nDone ")
