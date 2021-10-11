@@ -134,10 +134,11 @@ def setup(setup_accounts, setup_type='add-user', current_user=None):
     # Write all accounts to JSON file
     create_config(file=Path().home() / "gitswitch.json", accounts=accounts + all_accounts)
 
+    print("\n\nFinished setting up account/s")
+    print("Starting GitSwitch...\n")
     # start gitswitch
     switcher(start_github=True)
 
-    print("\n\nFinished setting up account/s")
     print("\n run gitswitch to switch accounts")
 
 
@@ -155,15 +156,9 @@ def switcher(start_github: bool = True) -> None:
         kill_github()
         time.sleep(1)
 
-    # delete current_data
-    if not get_current_user():
-        # if current user is None delete gitconfig and githubDesktop
-        existing_data_handler(delete=True)
-    else:
-        handle_current_user()
-
-    print("Select Account")
-    print("---------------\n")
+    print("\n\n")
+    print(f"Select Account  (Current User: {get_current_user() or 'Not Logged in)'})")
+    print("----------------------------------------\n")
     for index, user in enumerate(accounts):
         print(f"{index + 1}. {user}")
 
@@ -180,6 +175,13 @@ def switcher(start_github: bool = True) -> None:
     print("---------------\n")
     selected_user = accounts[user_input - 1]
     print(f"\nSwitching account to user : {selected_user}")
+
+    # delete current_data
+    if not get_current_user():
+        # if current user is None delete gitconfig and githubDesktop
+        existing_data_handler(delete=True)
+    else:
+        handle_current_user()
 
     rename(host=Path(github_base_path.as_posix() + selected_user), rename_to=github_base_path)
     copy(host=Path(config_file.as_posix() + selected_user), copy_to=config_file, is_dir=False)

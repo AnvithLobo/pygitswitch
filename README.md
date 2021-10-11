@@ -31,21 +31,14 @@ This aims to solve that problem by keeping a copy `Roaming\Github Desktop` folde
   <summary>Answer</summary>
 No this script only support windows for now. Feel free to open a pull request if you have a patch for Linux / macOS
 </details>
--------------------------------------------------------
 
-**Q:** Why does it ask for Admin Privileges when trying to switch accounts.
-
-<details>
-  <summary>Answer</summary>
-`mklink` on Windows needs admin privileges to create symlinks. (if someone has a better solution please open an issue / pull request)
-</details>
 -------------------------------------------------------
 
 **Q:** How do you use this? 
 
 <details>
   <summary>Answer</summary>
-Check the installation section here. 
+Check the installation section below. 
 </details>
 -------------------------------------------------------
 

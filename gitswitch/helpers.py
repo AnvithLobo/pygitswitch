@@ -32,8 +32,16 @@ def create_config(file: Path = Path().home() / 'gitswitch.json', accounts=None, 
 
 
 def get_accounts(file: Path = Path().home() / 'gitswitch.json') -> list:
-    return json.loads(file.read_text())['accounts']
+    try:
+        return json.loads(file.read_text())['accounts']
+    except FileNotFoundError:
+        print(f"Config file {file} not found. Did you run \"gitswitch init\" yet?")
+        sys.exit(-1)
 
 
 def get_current_user(file: Path = Path().home() / 'gitswitch.json'):
-    return json.loads(file.read_text())['current_user']
+    try:
+        return json.loads(file.read_text())['current_user']
+    except FileNotFoundError:
+        print(f"Config file {file} not found. Did you run \"gitswitch init\" yet?")
+        sys.exit(-1)

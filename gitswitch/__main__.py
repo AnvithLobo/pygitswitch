@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 from gitswitch.installer import get_github_path, github_install
 from gitswitch.switcher import switcher, setup
@@ -33,7 +34,9 @@ def parse_args():
     return parser.parse_args()
 
 
-def main(args):
+def main(args=None):
+    if not args:
+        args = vars(parse_args())
 
     script = args.get('script')
     if script != "install":
@@ -44,8 +47,14 @@ def main(args):
         switcher(start_github=not args.get('do_not_start_github'))
     elif script == "init":
         accounts = args.get('users')
-        if args.get('current_user') in accounts:
-            accounts.remove(args.get('current_user'))
+        if accounts:
+            if args.get('current_user') in accounts:
+                accounts.remove(args.get('current_user'))
+
+        if not accounts and not args.get('current_user'):
+            print("specify -c and or -u with username for init")
+            sys.exit(-1)
+
         setup(setup_accounts=accounts, current_user=args.get('current_user'), setup_type='init')
     elif script == "add_user":
         setup(setup_accounts=args.get('user'))
