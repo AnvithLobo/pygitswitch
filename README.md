@@ -1,6 +1,12 @@
 # GitHub-Switch
  GitHub Desktop Multi account switcher
 
+
+***
+# Note:
+* Project is currently in alpha status the README might not be updated and the code might broken. 
+* Once the Project reaches beta status a pip package will be released 
+
 --------------
 ## Why  : 
 https://github.com/desktop/desktop/issues/3707
