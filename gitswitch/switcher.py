@@ -127,18 +127,6 @@ def setup(setup_accounts, setup_type='switch', current_user=None):
     print("\n run gitswitch to switch accounts")
 
 
-def symlink(host, symlink_to, is_dir=False):
-    # ToDo : make this to actually rename folder and keep track of current user account in config file
-    command = f"mklink \"{symlink_to}\" \"{host}\""
-    if is_dir:
-        command += " /d"
-
-    # spend an hour to find how sudo in windows works !
-    command = "/c " + command
-    ctypes.windll.shell32.ShellExecuteW(None, "runas", 'cmd.exe', command, None, 1)
-    # run(command)
-
-
 def copy(host, copy_to, is_dir=False):
     shutil.copy(host, copy_to)
 
@@ -182,8 +170,6 @@ def switcher(start_github: bool = True) -> None:
     selected_user = accounts[user_input - 1]
     print(f"\nSwitching account to user : {selected_user}")
 
-    # symlink github folder and config file
-    # symlink(host=Path(github_base_path.as_posix() + selected_user), symlink_to=github_base_path, is_dir=True)
     rename(host=Path(github_base_path.as_posix() + selected_user), rename_to=github_base_path)
     copy(host=Path(config_file.as_posix() + selected_user), copy_to=config_file, is_dir=False)
     
