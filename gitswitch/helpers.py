@@ -15,7 +15,7 @@ def run_command(command: str, std_output=False):
     else:
         return_data = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-    return return_data.returncode
+    return return_data
 
 
 def create_config(file: Path = Path().home() / 'gitswitch.json', accounts=None, current_user=None) -> None:
