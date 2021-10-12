@@ -1,4 +1,4 @@
-# GitSwitch
+# pyGitSwitch
  GitHub Desktop Multi account switcher
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -47,11 +47,11 @@ Check the installation section below.
 ### Python
 - **With Python >= 3.6**
 ```console
-pip install GitSwitch
+pip install pyGitSwitch
 ```
 or install the latest development branch using
 ```console
-pip install git+https://github.com/AnvithLobo/gitswitch
+pip install git+https://github.com/AnvithLobo/pygitswitch
 ```
 
 ### Windows
