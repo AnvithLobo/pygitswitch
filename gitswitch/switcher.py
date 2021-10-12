@@ -62,7 +62,6 @@ def existing_data_handler(folder_ext="", config_ext="", delete=False):
         config_file.unlink(missing_ok=True)
 
 
-
 def handle_current_user():
     """
     Handle current user data. If Current user is none delete default files else rename to user DIR
