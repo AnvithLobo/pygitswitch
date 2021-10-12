@@ -42,7 +42,7 @@ def kill_github():
     github_running = github_process()
 
     if github_running:
-        print("\nStopping Github Process")
+        print("\nStopping Github Process...")
         kill_status = run_command(f"taskkill /f /im {github_executable}")
         if kill_status.returncode != 0 and "ERROR: The process" not in kill_status.stderr.decode():
             raise Exception(f"Error Killing {github_executable} with error \n {kill_status.stderr.decode()}")

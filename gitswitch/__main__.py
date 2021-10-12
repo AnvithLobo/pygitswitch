@@ -21,7 +21,7 @@ def parse_args():
                               type=str, default=None, metavar="USERNAME")
     setup_parser.add_argument("-u", "--users", help="all usernames seperated by space", nargs="+", metavar='USERNAME')
 
-    add_user_parser = subparser.add_parser('add_user', help="Add more users each user proceeded with a space")
+    add_user_parser = subparser.add_parser('adduser', help="Add more users each user proceeded with a space")
     add_user_parser.add_argument('user', metavar="USERNAME", nargs='+')
 
     install_parser = subparser.add_parser('install', help="Install Github")
@@ -56,7 +56,7 @@ def main(args=None):
             sys.exit(-1)
 
         setup(setup_accounts=accounts, current_user=args.get('current_user'), setup_type='init')
-    elif script == "add_user":
+    elif script == "adduser":
         setup(setup_accounts=args.get('user'))
         print('\nmake sure to modify the accounts in script to add new users')
     elif script == "install":
