@@ -1,12 +1,9 @@
 # GitSwitch
  GitHub Desktop Multi account switcher
 
-----
-## Note:
-* Project is currently in BETA status the README might not be up to date and the code might broken.  
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
---------------
-## Why  : 
+## ➤ Why  : 
 https://github.com/desktop/desktop/issues/3707
 Since GitHub Desktop doesn't natively support multiple account. 
 
@@ -16,61 +13,61 @@ This aims to solve that problem by keeping a copy `Roaming\Github Desktop` for e
 when asked and rename the folder back when switching to a new user. (records kept track using `~/gitswitch.json` file)
 
 
-------------------
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
 
-## How  :
+## ➤ How  :
 * Make user login with each account in setup (`init`) process.
 * rename `.gitconfig` and `GitHub Desktop` folder with username at the end.
 * When `switch` method is called rename the user folder to `GitHub Desktop` and copy over the `.gitconfuser` file to `.gitconf`. 
 * update the `~/gitswitch.json` with the current user details.
 
 
-------------------
-## Faq
-**Q:** Does this work on Linux / macOS ?
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
+
+## ➤ FAQ
+- **Q:** Does this work on Linux / macOS ?
 <details>
   <summary>Answer</summary>
 No this script only support windows for now. Feel free to open a pull request if you have a patch for Linux / macOS
 </details>
 
--------------------------------------------------------
 
-**Q:** How do you use this? 
+- **Q:** How do you use this? 
 
 <details>
   <summary>Answer</summary>
 Check the installation section below. 
 </details>
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 
------
-# Installation
+# ➤ Installation
 
 ### Python
 - **With Python >= 3.6**
-```bash
-$ pip install GitSwitch
+```console
+pip install GitSwitch
 ```
 or install the latest development branch using
-```bash
+```console
 pip install git+https://github.com/AnvithLobo/gitswitch
 ```
 
 ### Windows
 - **Windows Standalone exe**
 
-Download the exe from releases and add the exe and add the containing folder to your PATH
-```html
+Download the exe from releases (TBD) and add the exe and add the containing folder to your PATH
+```
 https://stackoverflow.com/questions/44272416/how-to-add-a-folder-to-path-environment-variable-in-windows-10
 ```
 
-******
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
 
-### Init
+## Init
 
 - Run `gitswitch init` (First run only)
-```bash
+```console
 $ gitswitch init --help
 usage: gitswitch init [-h] [-c USERNAME] [-u USERNAME [USERNAME ...]]
 
@@ -81,19 +78,19 @@ options:
   -u USERNAME [USERNAME ...], --users USERNAME [USERNAME ...]
                         all usernames seperated by space
 ```
-```bash
+```console
 $ gitswitch init -c user1 -u user2 user3
 ```
-```bash
+```console
 $ gitswitch init -u user1 user2
 ```
-*****
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
 
-### Switch
+## Switch
 
 - Run account switcher 
 
-```bash
+```console
 $ gitswitch switch --help
 usage: gitswitch switch [-h] [-d]
 
@@ -103,7 +100,7 @@ options:
                         Do NOT Start github after switching account
 ```
 
-```bash
+```console
 $ gitswitch
 
 Stopping Github Process...
@@ -126,11 +123,11 @@ Done
 
 just running `gitswitch` without any arguments will trigger `switch` command by default
 
-***
-### Add User/s
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
+## Add User/s
 
 - Add more users. 
-```bash
+```console
 $ gitswitch adduser -h
 usage: gitswitch adduser [-h] USERNAME [USERNAME ...]
 
@@ -141,15 +138,13 @@ options:
   -h, --help  show this help message and exit
 ```
 
-```bash
+```console
 $ gitswitch adduser user4 user5
 ```
 
----
-ToDo:
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+ ➤ ToDo:
 -------
 * Delete account/s.
-
-
----
 
