@@ -1,16 +1,15 @@
 # pyGitSwitch
- GitHub Desktop Multi account switcher
+ GitHub Desktop Multi-account switcher
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ## ➤ Why  : 
 https://github.com/desktop/desktop/issues/3707
-Since GitHub Desktop doesn't natively support multiple account. 
+Since GitHub Desktop doesn't natively support multiple accounts. 
 
-So users often have to log out and log back into their work and personnel accounts and re add the repos they're working on.
+So users often have to log out and log back into their work and personnel accounts and re-add the repos they're working on.
 
-This aims to solve that problem by keeping a copy `Roaming\Github Desktop` for each user and then renaming the folder 
-when asked and rename the folder back when switching to a new user. (records kept track using `~/gitswitch.json` file)
+This aims to solve that problem by keeping a copy `Roaming\Github Desktop` for each user and then renaming the folder when asked and rename the folder back when switching to a new user. (records kept track using `~/gitswitch.json` file)
 
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
@@ -18,7 +17,7 @@ when asked and rename the folder back when switching to a new user. (records kep
 ## ➤ How  :
 * Make user login with each account in setup (`init`) process.
 * rename `.gitconfig` and `GitHub Desktop` folder with username at the end.
-* When `switch` method is called rename the user folder to `GitHub Desktop` and copy over the `.gitconfuser` file to `.gitconf`. 
+* When the `switch` method is called rename the user folder to `GitHub Desktop` and copy over the `.gitconfuser` file to `.gitconf`. 
 * update the `~/gitswitch.json` with the current user details.
 
 
@@ -28,7 +27,7 @@ when asked and rename the folder back when switching to a new user. (records kep
 - **Q:** Does this work on Linux / macOS ?
 <details>
   <summary>Answer</summary>
-No this script only support windows for now. Feel free to open a pull request if you have a patch for Linux / macOS
+No, this script only supports windows for now. Feel free to open a pull request if you have a patch for Linux / macOS
 </details>
 
 
@@ -76,7 +75,7 @@ options:
   -c USERNAME, --current-user USERNAME
                         Store current user login as (do not delete current user)
   -u USERNAME [USERNAME ...], --users USERNAME [USERNAME ...]
-                        all usernames seperated by space
+                        all usernames separated by space
 ```
 ```console
 $ gitswitch init -c user1 -u user2 user3
@@ -97,7 +96,7 @@ usage: gitswitch switch [-h] [-d]
 options:
   -h, --help            show this help message and exit
   -d, --do-not-start-github
-                        Do NOT Start github after switching account
+                        Do NOT Start GitHub after switching account
 ```
 
 ```console
@@ -121,7 +120,7 @@ Switching account to user : User3
 Done
 ```
 
-just running `gitswitch` without any arguments will trigger `switch` command by default
+just running `gitswitch` without any arguments will trigger the `switch` command by default
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
 ## Add User/s
