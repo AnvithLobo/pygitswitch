@@ -223,6 +223,9 @@ def delete_user(users: list):
         if user in accounts:
             if user == current_user:
                 kill_github()
+                while github_process():
+                    print("\t waiting for GitHub Desktop to terminate...", end="\r")
+                    time.sleep(2)
                 print("\nSetting current user to None.")
                 handle_current_user()
                 current_user = get_current_user()
