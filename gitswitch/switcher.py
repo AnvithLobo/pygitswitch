@@ -214,6 +214,9 @@ def switcher(start_github: bool = True) -> None:
 
 
 def delete_user(users: list):
+    """
+    delete user from gitswitch along with their data
+    """
     accounts = get_accounts()
     current_user = get_current_user()
     for user in users:

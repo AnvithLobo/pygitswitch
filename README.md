@@ -141,9 +141,36 @@ options:
 $ gitswitch adduser user4 user5
 ```
 
+```console
+$ gitswitch adduser user6
+```
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
+## Delete User/s
+
+- Delete user/s. 
+```console
+$ gitswitch deluser -h
+usage: gitswitch deluser [-h] USERNAME [USERNAME ...]
+
+positional arguments:
+  USERNAME
+
+options:
+  -h, --help  show this help message and exit
+```
+
+```console
+$ gitswitch deluser user2 user5
+```
+
+```console
+$ gitswitch deluser user1
+```
+
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
  ➤ ToDo:
 -------
-* Delete account/s.
+* ...
 
