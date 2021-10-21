@@ -35,7 +35,7 @@ def github_process():
         decode().splitlines()[-1].startswith(github_executable)
 
 
-def kill_github():
+def kill_github() -> None:
     """
     Kill github process if running
     """
@@ -48,7 +48,7 @@ def kill_github():
             raise Exception(f"Error Killing {github_executable} with error \n {kill_status.stderr.decode()}")
 
 
-def existing_data_handler(folder_ext="", config_ext="", delete=False):
+def existing_data_handler(folder_ext="", config_ext="", delete=False, config_delete=True):
     # move the current github folder if exists to Github Desktop-Backup
     if github_base_path.is_dir():
         if delete:
@@ -59,7 +59,10 @@ def existing_data_handler(folder_ext="", config_ext="", delete=False):
     if config_file.is_symlink():
         config_file.unlink(missing_ok=True)
     elif config_file.is_file():
-        config_file.unlink(missing_ok=True)
+        if config_delete:
+            config_file.unlink(missing_ok=True)
+        else:
+            config_file.rename(config_file.parent / (".gitconfig" + config_ext))
 
 
 def handle_current_user():
@@ -80,6 +83,10 @@ def setup(setup_accounts, setup_type='add-user', current_user=None):
     Initial accounts setup / method to setup more accounts
     """
     kill_github()
+
+    while github_process():
+        print("\t waiting for GitHub Desktop to terminate...", end="\r")
+        time.sleep(2)
     # add a init setup type method and create a gitswitch.json
     if setup_type == 'init':
         create_config(file=Path().home() / "gitswitch.json")
@@ -126,7 +133,7 @@ def setup(setup_accounts, setup_type='add-user', current_user=None):
         print("\t waiting for all process to end")
         time.sleep(2)
         # rename the created folder and config with username at the end
-        existing_data_handler(folder_ext=user, config_ext=user)
+        existing_data_handler(folder_ext=user, config_ext=user, config_delete=False)
 
     # Write all accounts to JSON file
     create_config(file=Path().home() / "gitswitch.json", accounts=accounts + all_accounts)
@@ -135,8 +142,6 @@ def setup(setup_accounts, setup_type='add-user', current_user=None):
     print("Starting GitSwitch...\n")
     # start gitswitch
     switcher(start_github=True)
-
-    print("\n run gitswitch to switch accounts")
 
 
 def copy(host, copy_to, is_dir=False):
