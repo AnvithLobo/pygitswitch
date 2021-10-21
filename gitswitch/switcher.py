@@ -65,6 +65,23 @@ def existing_data_handler(folder_ext="", config_ext="", delete=False, config_del
             config_file.rename(config_file.parent / (".gitconfig" + config_ext))
 
 
+def delete_user_data(username: str):
+    """
+    Deletes user folder and and .gitconfig file
+    """
+    user_folder = github_base_path.parent / (github_folder + username)
+    if user_folder.is_dir():
+        shutil.rmtree(user_folder)
+    else:
+        print(f"\n folder {user_folder} not found")
+
+    user_config = Path(config_file.as_posix() + username)
+    if user_config.is_file():
+        user_config.unlink()
+    else:
+        print(f"\n config {user_config} not found")
+
+
 def handle_current_user():
     """
     Handle current user data. If Current user is none delete default files else rename to user DIR
@@ -194,3 +211,23 @@ def switcher(start_github: bool = True) -> None:
     if start_github:
         launch_github()
     print("\nDone ")
+
+
+def delete_user(users: list):
+    accounts = get_accounts()
+    current_user = get_current_user()
+    for user in users:
+        if user in accounts:
+            if user == current_user:
+                kill_github()
+                print("\nSetting current user to None.")
+                handle_current_user()
+                current_user = get_current_user()
+            print(f"\ndeleting user: {user} ...")
+            delete_user_data(username=user)
+            accounts.remove(user)
+            create_config(accounts=accounts, current_user=current_user)
+            print("Done.")
+        else:
+            print(f"User: {user} Not found in UserList {accounts}")
+            sys.exit(-1)

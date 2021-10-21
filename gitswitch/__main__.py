@@ -2,7 +2,7 @@ import argparse
 import sys
 
 from gitswitch.installer import get_github_path, github_install
-from gitswitch.switcher import switcher, setup
+from gitswitch.switcher import switcher, setup, delete_user
 
 
 def parse_args():
@@ -26,6 +26,9 @@ def parse_args():
 
     install_parser = subparser.add_parser('install', help="Install Github")
     install_parser.add_argument('-b', '--beta', help="Install GitHub Desktop Beta", action="store_true")
+
+    del_user_parser = subparser.add_parser('deluser', help="Delete users each user proceeded with a space")
+    del_user_parser.add_argument('user', metavar="USERNAME", nargs='+')
 
     """if len(sys.argv) == 1:
         parser.print_help()
@@ -58,9 +61,10 @@ def main(args=None):
         setup(setup_accounts=accounts, current_user=args.get('current_user'), setup_type='init')
     elif script == "adduser":
         setup(setup_accounts=args.get('user'))
-        print('\nmake sure to modify the accounts in script to add new users')
     elif script == "install":
         github_install(beta=args.get("beta"))
+    elif script == "deluser":
+        delete_user(users=args.get("user"))
 
 
 if __name__ == '__main__':
