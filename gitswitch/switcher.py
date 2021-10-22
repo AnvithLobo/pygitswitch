@@ -234,6 +234,10 @@ def delete_user(users: list):
             accounts.remove(user)
             create_config(accounts=accounts, current_user=current_user)
             print("Done.")
+
+            # launch gitswitch when current user is deleted
+            if not current_user:
+                switcher(start_github=True)
         else:
             print(f"User: {user} Not found in UserList {accounts}")
             sys.exit(-1)
