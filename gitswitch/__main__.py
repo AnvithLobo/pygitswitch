@@ -20,7 +20,7 @@ def parse_args():
     setup_parser = subparser.add_parser('init', help="Initial Setup (should only be used once)")
     setup_parser.add_argument("-c", "--current-user", help="Store current user login as (do not delete current user)",
                               type=str, default=None, metavar="USERNAME")
-    setup_parser.add_argument("-u", "--users", help="all usernames seperated by space", nargs="+", metavar='USERNAME')
+    setup_parser.add_argument("-u", "--users", help="all usernames seperated by space", nargs=1, metavar='USERNAME')
 
     add_user_parser = subparser.add_parser('adduser', help="Add more users each user proceeded with a space")
     add_user_parser.add_argument('user', metavar="USERNAME", nargs='+')
@@ -51,8 +51,8 @@ def main(args=None):
         if not args.get('user'):
             temp = -1
         else:
-            temp = args.get('user')
-        switcher(start_github=not args.get('do_not_start_github'), cli=temp)
+            temp = args.get('user')[0]
+        switcher(start_github=not args.get('do_not_start_github'), cli=int(temp))
     elif script == "init":
         accounts = args.get('users')
         if accounts:

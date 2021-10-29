@@ -169,13 +169,13 @@ def rename(host: Path, rename_to: Path):
     host.rename(rename_to)
 
 
-def switcher(start_github: bool = True, cli: int = -1) -> None:
+def switcher(start_github: bool = True, cli=-1) -> None:
     accounts = get_accounts()
     while github_process():
         kill_github()
         time.sleep(1)
 
-    if not cli == -1:
+    if cli == -1:
         print("\n\n")
         print(f"Select Account  (Current User: {get_current_user() or 'Not Logged in)'})")
         print("----------------------------------------\n")
