@@ -169,31 +169,34 @@ def rename(host: Path, rename_to: Path):
     host.rename(rename_to)
 
 
-def switcher(start_github: bool = True) -> None:
+def switcher(start_github: bool = True, cli: int = -1) -> None:
     accounts = get_accounts()
     while github_process():
         kill_github()
         time.sleep(1)
 
-    print("\n\n")
-    print(f"Select Account  (Current User: {get_current_user() or 'Not Logged in)'})")
-    print("----------------------------------------\n")
-    for index, user in enumerate(accounts):
-        print(f"{index + 1}. {user}")
+    if not cli == -1:
+        print("\n\n")
+        print(f"Select Account  (Current User: {get_current_user() or 'Not Logged in)'})")
+        print("----------------------------------------\n")
+        for index, user in enumerate(accounts):
+            print(f"{index + 1}. {user}")
 
-    while True:
-        user_input = input(f"\n Enter Your Choice (1-{len(accounts)}) : ")
-        try:
-            user_input = int(user_input.strip())
-            if user_input not in range(1, len(accounts) + 1):
-                raise ValueError
-            break
-        except ValueError:
-            print("Invalid input \n")
+        while True:
+            user_input = input(f"\n Enter Your Choice (1-{len(accounts)}) : ")
+            try:
+                user_input = int(user_input.strip())
+                if user_input not in range(1, len(accounts) + 1):
+                    raise ValueError
+                break
+            except ValueError:
+                print("Invalid input \n")
 
-    print("---------------\n")
-    selected_user = accounts[user_input - 1]
-    print(f"\nSwitching account to user : {selected_user}")
+        print("---------------\n")
+        selected_user = accounts[user_input - 1]
+        print(f"\nSwitching account to user : {selected_user}")
+    else:
+        selected_user = accounts[cli - 1]
 
     # delete current_data
     if not get_current_user():

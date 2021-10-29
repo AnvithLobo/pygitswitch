@@ -15,6 +15,7 @@ def parse_args():
     switch_parser = subparser.add_parser('switch', help="Switch github account")
     switch_parser.add_argument('-d', '--do-not-start-github', help="Do NOT Start github after switching account",
                                action="store_true", default=False)
+    switch_parser.add_argument('-u', '--user', help="Run gitswitch and switch user with an argument", nargs="+", metavar="USERID")
 
     setup_parser = subparser.add_parser('init', help="Initial Setup (should only be used once)")
     setup_parser.add_argument("-c", "--current-user", help="Store current user login as (do not delete current user)",
@@ -47,7 +48,11 @@ def main(args=None):
         if not get_github_path:
             print("Github Not found install it manually or using the install script")
     if script == "switch" or not script:
-        switcher(start_github=not args.get('do_not_start_github'))
+        if not args.get('user'):
+            temp = -1
+        else:
+            temp = args.get('user')
+        switcher(start_github=not args.get('do_not_start_github'), cli=temp)
     elif script == "init":
         accounts = args.get('users')
         if accounts:
