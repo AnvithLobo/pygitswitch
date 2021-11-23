@@ -169,30 +169,47 @@ def rename(host: Path, rename_to: Path):
     host.rename(rename_to)
 
 
-def switcher(start_github: bool = True) -> None:
+def switcher(start_github: bool = True, user: str =None) -> None:
+    """
+    Switches between users
+    :param start_github: bool - start github desktop
+    :param user: str - username to switch to
+    """
     accounts = get_accounts()
     while github_process():
         kill_github()
         time.sleep(1)
 
-    print("\n\n")
-    print(f"Select Account  (Current User: {get_current_user() or 'Not Logged in)'})")
-    print("----------------------------------------\n")
-    for index, user in enumerate(accounts):
-        print(f"{index + 1}. {user}")
+    if not user:
+        print("\n\n")
+        print(f"Select Account  (Current User: {get_current_user() or 'Not Logged in)'})")
+        print("----------------------------------------\n")
+        for index, user in enumerate(accounts):
+            print(f"{index + 1}. {user}")
 
-    while True:
-        user_input = input(f"\n Enter Your Choice (1-{len(accounts)}) : ")
-        try:
-            user_input = int(user_input.strip())
-            if user_input not in range(1, len(accounts) + 1):
-                raise ValueError
-            break
-        except ValueError:
-            print("Invalid input \n")
+        while True:
+            user_input = input(f"\n Enter Your Choice (1-{len(accounts)}) : ")
+            try:
+                user_input = int(user_input.strip())
+                if user_input not in range(1, len(accounts) + 1):
+                    raise ValueError
+                break
+            except ValueError:
+                print("Invalid input \n")
 
-    print("---------------\n")
-    selected_user = accounts[user_input - 1]
+        print("---------------\n")
+        selected_user = accounts[user_input - 1]
+    elif user.isnumeric():
+        if int(user) > len(accounts) or int(user) < 1:
+            print("Invalid User ID")
+            sys.exit(-1)
+        selected_user = accounts[int(user) - 1]
+    elif user.strip() in accounts:
+        selected_user = user.strip()
+    else:
+        print(f"user: {user} not found in accounts")
+        sys.exit(-1)
+
     print(f"\nSwitching account to user : {selected_user}")
 
     # delete current_data
@@ -241,3 +258,20 @@ def delete_user(users: list):
         else:
             print(f"User: {user} Not found in UserList {accounts}")
             sys.exit(-1)
+
+
+def show_all_users():
+    """
+    show all users with userid and username and indicate current user
+    """
+    accounts = get_accounts()
+    current_user = get_current_user()
+    print("\n\n")
+    print("----------------------------------------\n")
+    for index, user in enumerate(accounts):
+        if user == current_user:
+            print(f"{index + 1}. {user} (Current User)")
+        else:
+            print(f"{index + 1}. {user}")
+    print("----------------------------------------\n")
+

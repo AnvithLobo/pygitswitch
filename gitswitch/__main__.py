@@ -2,7 +2,7 @@ import argparse
 import sys
 
 from gitswitch.installer import get_github_path, github_install
-from gitswitch.switcher import switcher, setup, delete_user
+from gitswitch.switcher import switcher, setup, delete_user, show_all_users
 
 
 def parse_args():
@@ -13,6 +13,8 @@ def parse_args():
     subparser = parser.add_subparsers(title='Options', dest='script')
 
     switch_parser = subparser.add_parser('switch', help="Switch github account")
+    switch_parser.add_argument("-u", "--user", help="username / userid to switch to", type=str, default=None,
+                               metavar='USERNAME')
     switch_parser.add_argument('-d', '--do-not-start-github', help="Do NOT Start github after switching account",
                                action="store_true", default=False)
 
@@ -29,6 +31,8 @@ def parse_args():
 
     del_user_parser = subparser.add_parser('deluser', help="Delete users each user proceeded with a space")
     del_user_parser.add_argument('user', metavar="USERNAME", nargs='+')
+
+    show_details_parser = subparser.add_parser('showdetails', help="Show a list of users and the current user")
 
     """if len(sys.argv) == 1:
         parser.print_help()
@@ -47,7 +51,7 @@ def main(args=None):
         if not get_github_path:
             print("Github Not found install it manually or using the install script")
     if script == "switch" or not script:
-        switcher(start_github=not args.get('do_not_start_github'))
+        switcher(start_github=not args.get('do_not_start_github'), user=args.get('user'))
     elif script == "init":
         accounts = args.get('users')
         if accounts:
@@ -65,6 +69,8 @@ def main(args=None):
         github_install(beta=args.get("beta"))
     elif script == "deluser":
         delete_user(users=args.get("user"))
+    elif script == "showdetails":
+        show_all_users()
 
 
 if __name__ == '__main__':

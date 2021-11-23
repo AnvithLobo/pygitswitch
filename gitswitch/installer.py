@@ -21,7 +21,7 @@ def github_install(beta=False):
         if return_data.return_code != 0:
             print(f"\n\nProcess exited with return code {return_data.return_code}")
             print("If retrying does not work open a support ticket "
-                  "https://github.com/AnvithLobo/github-switch/issues/new")
+                  "https://github.com/AnvithLobo/pygitswitch/issues/new")
             sys.exit(-1)
 
         # Install Package
@@ -30,7 +30,7 @@ def github_install(beta=False):
         if return_data.return_code != 0:
             print(f"\n\n Failed to install process exited {return_data.return_code}")
             print("If retrying does not work open a support ticket "
-                  "https://github.com/AnvithLobo/github-switch/issues/new")
+                  "https://github.com/AnvithLobo/pygitswitch/issues/new")
             sys.exit(-1)
 
     else:

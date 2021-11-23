@@ -45,3 +45,5 @@ def get_current_user(file: Path = Path().home() / 'gitswitch.json'):
     except FileNotFoundError:
         print(f"Config file {file} not found. Did you run \"gitswitch init\" yet?")
         sys.exit(-1)
+
+# ToDo: add a function to create windows shortcuts for each account to switch to
