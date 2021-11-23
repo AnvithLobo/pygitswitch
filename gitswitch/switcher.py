@@ -267,11 +267,13 @@ def show_all_users():
     accounts = get_accounts()
     current_user = get_current_user()
     print("\n\n")
-    print("----------------------------------------\n")
+    print("----------------------------------------------")
+    print(f"|  ID  | {'UserName':20} | Current User |")
+    print("----------------------------------------------")
     for index, user in enumerate(accounts):
         if user == current_user:
-            print(f"{index + 1}. {user} (Current User)")
+            print(f"| {index + 1:3}. | {user:20} | ✔️{'':11}|")
         else:
-            print(f"{index + 1}. {user}")
-    print("----------------------------------------\n")
+            print(f"| {index + 1:3}. | {user:20} | X {'':11}|")
+    print("----------------------------------------------\n")
 

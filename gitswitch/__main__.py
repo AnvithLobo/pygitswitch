@@ -32,7 +32,7 @@ def parse_args():
     del_user_parser = subparser.add_parser('deluser', help="Delete users each user proceeded with a space")
     del_user_parser.add_argument('user', metavar="USERNAME", nargs='+')
 
-    show_details_parser = subparser.add_parser('showdetails', help="Show a list of users and the current user")
+    show_details_parser = subparser.add_parser('showusers', help="Show a list of users and the current user")
 
     """if len(sys.argv) == 1:
         parser.print_help()
@@ -69,7 +69,7 @@ def main(args=None):
         github_install(beta=args.get("beta"))
     elif script == "deluser":
         delete_user(users=args.get("user"))
-    elif script == "showdetails":
+    elif script == "showusers":
         show_all_users()
 
 
