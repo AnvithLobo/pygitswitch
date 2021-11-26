@@ -266,14 +266,21 @@ def show_all_users():
     """
     accounts = get_accounts()
     current_user = get_current_user()
+
+    # get spacing using the longest username and 2 extra spaces / minimum spacing of 10
+    spacing = max(len(max(accounts, key=len)) + 2, 10)
+
+    # get line length
+    line_length = len(f"| ID | {'User Name':{spacing}} | Current User |")
+
     print("\n\n")
-    print("----------------------------------------------")
-    print(f"|  ID  | {'UserName':20} | Current User |")
-    print("----------------------------------------------")
+    print("-" * line_length)
+    print(f"| ID | {'User Name':{spacing}} | Current User |")
+    print("-" * line_length)
     for index, user in enumerate(accounts):
         if user == current_user:
-            print(f"| {index + 1:3}. | {user:20} | ✔️{'':11}|")
+            print(f"|{index + 1:3} | {user:{spacing}} | ✓️{'':11}|")
         else:
-            print(f"| {index + 1:3}. | {user:20} | X {'':11}|")
-    print("----------------------------------------------\n")
+            print(f"|{index + 1:3} | {user:{spacing}} | X {'':11}|")
+    print("-" * line_length, '\n')
 
