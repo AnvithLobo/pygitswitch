@@ -91,12 +91,15 @@ $ gitswitch init -u user1 user2
 
 ```console
 $ gitswitch switch --help
-usage: gitswitch switch [-h] [-d]
+gitswitch switch [-h] [-u USERNAME] [-d]
 
 options:
   -h, --help            show this help message and exit
+  -u USERNAME, --user USERNAME
+                        username / userid to switch to
   -d, --do-not-start-github
-                        Do NOT Start GitHub after switching account
+                        Do NOT Start github after switching account
+
 ```
 
 ```console
@@ -121,6 +124,28 @@ Done
 ```
 
 just running `gitswitch` without any arguments will trigger the `switch` command by default
+
+---
+
+* Non-interactive mode
+```console
+$ gitswitch switch -u User2
+
+Switching account to user : User2
+
+Done
+```
+
+```console
+$ gitswitch switch -u 1
+
+Stopping Github Process...
+
+Switching account to user : User1
+
+Done
+
+```
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
 ## Add User/s
@@ -166,6 +191,24 @@ $ gitswitch deluser user2 user5
 
 ```console
 $ gitswitch deluser user1
+```
+
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)
+## List User/s
+
+- List user/s. 
+```console
+$ gitswitch showusers
+
+----------------------------------
+| ID | User Name  | Current User |
+----------------------------------
+|  1 | User1      | ✓️            |
+|  2 | User2      | X            |
+|  3 | User3      | X            |
+----------------------------------
+
 ```
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
