@@ -32,7 +32,7 @@ def parse_args():
     del_user_parser = subparser.add_parser('deluser', help="Delete users each user proceeded with a space")
     del_user_parser.add_argument('user', metavar="USERNAME", nargs='+')
 
-    show_details_parser = subparser.add_parser('showusers', help="Show a list of users and the current user")
+    subparser.add_parser('showusers', help="Show a list of users and the current user")
 
     """if len(sys.argv) == 1:
         parser.print_help()
@@ -49,7 +49,7 @@ def main(args=None):
     if script != "install":
         # Check if github is installed
         if not get_github_path():
-            print("Github Not found install it manually or using the install script")
+            print("Github Not found install it manually or using the install script (gitswitch install)")
     if script == "switch" or not script:
         switcher(start_github=not args.get('do_not_start_github'), user=args.get('user'))
     elif script == "init":
