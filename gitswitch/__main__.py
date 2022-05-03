@@ -48,7 +48,7 @@ def main(args=None):
     script = args.get('script')
     if script != "install":
         # Check if github is installed
-        if not get_github_path:
+        if not get_github_path():
             print("Github Not found install it manually or using the install script")
     if script == "switch" or not script:
         switcher(start_github=not args.get('do_not_start_github'), user=args.get('user'))
