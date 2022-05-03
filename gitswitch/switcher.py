@@ -169,7 +169,7 @@ def rename(host: Path, rename_to: Path):
     host.rename(rename_to)
 
 
-def switcher(start_github: bool = True, user: str =None) -> None:
+def switcher(start_github: bool = True, user: str = None) -> None:
     """
     Switches between users
     :param start_github: bool - start github desktop
@@ -283,4 +283,3 @@ def show_all_users():
         else:
             print(f"|{index + 1:3} | {user:{spacing}} | X {'':11}|")
     print("-" * line_length, '\n')
-

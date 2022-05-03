@@ -17,18 +17,20 @@ def github_install(beta=False):
         print("Found Windows Package Manager installing GitHub Desktop using winget \n\n")
 
         # Search for package
+        print(f"Running Command: winget show -e {package}")
+        print(f"\nPackage Details:")
         return_data = run_command(f"winget show -e {package}", std_output=True)
-        if return_data.return_code != 0:
-            print(f"\n\nProcess exited with return code {return_data.return_code}")
+        if return_data.returncode != 0:
+            print(f"\n\nProcess exited with return code {return_data.returncode}")
             print("If retrying does not work open a support ticket "
                   "https://github.com/AnvithLobo/pygitswitch/issues/new")
             sys.exit(-1)
 
         # Install Package
-        print("\n\n")
+        print(f"\n\nRunning Command: winget install -e {package}")
         return_data = run_command(f"winget install -e {package}", std_output=True)
-        if return_data.return_code != 0:
-            print(f"\n\n Failed to install process exited {return_data.return_code}")
+        if return_data.returncode != 0:
+            print(f"\n\n Failed to install process exited {return_data.returncode}")
             print("If retrying does not work open a support ticket "
                   "https://github.com/AnvithLobo/pygitswitch/issues/new")
             sys.exit(-1)
